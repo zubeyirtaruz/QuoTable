@@ -2,9 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.huawei.agconnect'
-    id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs.kotlin"
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -12,8 +12,8 @@ android {
     compileSdk 33
 
     buildFeatures{
-        viewBinding true
         dataBinding true
+        viewBinding true
     }
 
     signingConfigs {
@@ -71,41 +71,50 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    def lifeCycleExtension_Version = '1.1.1'
+    def lifecycle_version = '2.6.0-alpha03'
+    def hmsNetworkKit_Version = '6.0.7.300'
+    def nav_Version = '2.5.3'
+    def activity_version = '1.6.1'
+    def preferences_Version = '1.2.0'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_Version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_Version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //activityViewModels
+    implementation "androidx.activity:activity-ktx:$activity_version"
+
+    // Use the network request function of Network Kit.
+    implementation "com.huawei.hms:network-embedded:$hmsNetworkKit_Version"
+
+    // Kotlinx Serialization(Required for Network Kit)
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+
+    // swipeRefreshLayout
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+
+    // viewmodelprovider (android.enableJetifier=true)
+    implementation "android.arch.lifecycle:extensions:$lifeCycleExtension_Version"
+
+    implementation 'com.huawei.hms:ads:3.4.49.301'
+    //implementation "com.huawei.hms:ads-lite:13.4.58.301"
+    //implementation "com.huawei.hms:ads-prime:3.4.58.301"
+    implementation 'com.github.Explore-In-HMS:huawei.ads.admob_mediation:2.0.2'
+
+    implementation "com.huawei.hms:hianalytics:6.8.0.300"
+    implementation "com.huawei.agconnect:agconnect-crash:1.7.3.300"
+
+    implementation "androidx.preference:preference-ktx:$preferences_Version"
+
+    implementation "com.google.android.gms:play-services-ads:21.3.0"
+    
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-    /*def lifeCycleExtensionVersion = '1.1.1'
-    def retrofitVersion = '2.5.0'
-    def glideVersion = '4.13.2'
-    def rxJavaVersion = '2.2.9'
-    def roomVersion = '2.4.3'
-    def navVersion = '2.5.3'
-    def preferencesVersion = '1.2.0'
-
-    implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
-
-    implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    implementation "androidx.room:room-rxjava2:$roomVersion"
-    implementation "android.arch.persistence.room:rxjava2:1.1.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-
-    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
-
-    implementation "com.google.android.material:material:1.7.0"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-
-    implementation "androidx.preference:preference:$preferencesVersion"*/
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.zubeyirtaruz.quotable.viewmodel.QuoteViewModel" />
+        <variable
+            name="viewBinding"
+            type="com.zubeyirtaruz.quotable.template.TemplateViewBinding" />
+    </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            tools:context=".view.TemplateFragment">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                itemDecoration="@{viewBinding.itemDecoration}"
+                adapter="@{viewBinding.adapter}"
+                items="@{viewModel.templates}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/nextButton"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="@string/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

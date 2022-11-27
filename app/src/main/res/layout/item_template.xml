@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.zubeyirtaruz.quotable.model.Template" />
+        <variable
+            name="quoteInfo"
+            type="com.zubeyirtaruz.quotable.model.Quote" />
+        <variable
+            name="listener"
+            type="com.zubeyirtaruz.quotable.adapter.TemplateAdapter.TemplateItemClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeColor="@color/charcoal"
+        android:onClick="@{() -> listener.onItemClick(item)}"
+        layoutId="@{item.layoutId}"
+        quoteInfo="@{quoteInfo}"
+        strokeWidthRes="@{item.strokeWidth}">
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

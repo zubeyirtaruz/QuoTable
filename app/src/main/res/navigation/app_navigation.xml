@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/quoteFeedFragment">
+
+    <fragment
+        android:id="@+id/quoteFeedFragment"
+        android:name="com.zubeyirtaruz.quotable.view.QuoteFeedFragment"
+        android:label="QuoTable"
+        tools:layout="@layout/fragment_quote_feed" >
+        <action
+            android:id="@+id/actionQuoteInfo"
+            app:destination="@id/quoteInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quoteInfoFragment"
+        android:name="com.zubeyirtaruz.quotable.view.QuoteInfoFragment"
+        android:label="Edit Quote Information" >
+        <action
+            android:id="@+id/actionTemplate"
+            app:destination="@id/templateFragment" />
+        <argument
+            android:name="text"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="author"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.zubeyirtaruz.quotable.view.TemplateFragment"
+        android:label="Select Template"
+        tools:layout="@layout/fragment_template" >
+        <action
+            android:id="@+id/actionShare"
+            app:destination="@id/shareFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.zubeyirtaruz.quotable.view.ShareFragment"
+        android:label="Share to Social Media"
+        tools:layout="@layout/fragment_share"/>
+
+</navigation>

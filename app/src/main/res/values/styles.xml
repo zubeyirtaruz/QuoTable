@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="title">
+        <item name="android:textColor">@color/charcoal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+</resources>
