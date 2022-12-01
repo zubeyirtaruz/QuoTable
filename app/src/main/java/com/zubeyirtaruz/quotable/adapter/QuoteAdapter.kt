@@ -46,17 +46,17 @@ class QuoteAdapter(private var quoteList: List<Quote>) : RecyclerView.Adapter<Qu
 
     override fun getItemCount(): Int = quoteList.size
 
-    fun setData(newUserList: List<Quote>) {
-        val diffUtil = QuoteDiffUtil(quoteList, newUserList)
+    fun setData(newQuoteList: List<Quote>) {
+        val diffUtil = QuoteDiffUtil(quoteList, newQuoteList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
-        quoteList = newUserList
+        quoteList = newQuoteList
         diffResults.dispatchUpdatesTo(this)
     }
 
      private fun onQuoteClicked(holder: QuoteViewHolder) {
         val text = holder.binding.quoteText.text.toString()
         val author = holder.binding.quoteAuthor.text.toString()
-        val action = QuoteFeedFragmentDirections.actionQuoteInfo(text,author)
+        val action = QuoteFeedFragmentDirections.actionQuoteInfo(text,author,"")
         Navigation.findNavController(holder.binding.rowCardView).navigate(action)
     }
 

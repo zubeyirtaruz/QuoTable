@@ -28,7 +28,7 @@ class QuoteFeedFragment : Fragment() {
         _binding = FragmentQuoteFeedBinding.inflate(inflater, container, false)
 
         binding.manualButton.setOnClickListener {
-            findNavController().navigate(QuoteFeedFragmentDirections.actionQuoteInfo("",""))
+            findNavController().navigate(QuoteFeedFragmentDirections.actionQuoteInfo("","",""))
         }
 
         return binding.root
@@ -86,6 +86,9 @@ class QuoteFeedFragment : Fragment() {
                 }
             }
         }
+
+
+
     }
 
     override fun onDestroyView() {

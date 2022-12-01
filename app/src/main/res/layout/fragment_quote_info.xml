@@ -125,26 +125,14 @@
                 app:layout_constraintStart_toStartOf="@id/mainConstraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/nextButton">
 
-                <com.google.android.gms.ads.AdView
-
-                    android:id="@+id/adView"
-                    android:layout_width="wrap_content"
+                <!--Banner View that is defined at here is provided by HMS-->
+                <com.huawei.hms.ads.banner.BannerView
+                    android:id="@+id/bannerLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-1308704961511929/9747038716"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </com.google.android.gms.ads.AdView>
-
+                    tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

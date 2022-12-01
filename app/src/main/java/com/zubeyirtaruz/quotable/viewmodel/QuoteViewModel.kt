@@ -1,7 +1,10 @@
 package com.zubeyirtaruz.quotable.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.huawei.hms.ads.banner.BannerView
+import com.zubeyirtaruz.quotable.BannerAdClass
 import com.zubeyirtaruz.quotable.R
 import com.zubeyirtaruz.quotable.adapter.TemplateAdapter
 import com.zubeyirtaruz.quotable.model.Quote
@@ -12,6 +15,7 @@ class QuoteViewModel: ViewModel(), TemplateAdapter.TemplateItemClickListener {
     val quote = MutableLiveData("")
     val author = MutableLiveData("")
     val book = MutableLiveData("")
+    val bannerBottom = MutableLiveData<BannerView>()
     val templates = MutableLiveData(
         listOf(
         Template(layoutId = R.layout.template_1, vip = false,isSelected = true),
@@ -51,5 +55,9 @@ class QuoteViewModel: ViewModel(), TemplateAdapter.TemplateItemClickListener {
             }
         }
         selectedTemplate = template
+    }
+
+    fun setBannerBottom(context: Context){
+        bannerBottom.value = BannerAdClass().setBannerAd(context)
     }
 }

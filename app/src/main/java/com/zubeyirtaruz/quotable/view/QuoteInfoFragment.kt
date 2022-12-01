@@ -1,7 +1,6 @@
 package com.zubeyirtaruz.quotable.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.*
 import com.zubeyirtaruz.quotable.databinding.FragmentQuoteInfoBinding
 import com.zubeyirtaruz.quotable.viewmodel.QuoteViewModel
-
 
 class QuoteInfoFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class QuoteInfoFragment : Fragment() {
 
         clickNextButton()
 
-        mAdView = binding.adView
+        /*mAdView = binding.adView
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
@@ -60,6 +58,7 @@ class QuoteInfoFragment : Fragment() {
                 Log.i(TAG,"AddOpened")
             }
         }
+        */
 
         return binding.root
     }
@@ -70,9 +69,12 @@ class QuoteInfoFragment : Fragment() {
         arguments?.let {
             viewModel.quote.value = QuoteInfoFragmentArgs.fromBundle(it).text
             viewModel.author.value = QuoteInfoFragmentArgs.fromBundle(it).author
+            viewModel.book.value = QuoteInfoFragmentArgs.fromBundle(it).book
         }
 
-        //binding.bannerLayout.addView(BannerAdClass().setBannerAd(requireContext()))
+        binding.bannerLayout.addView(viewModel.bannerBottom.value)
+
+
     }
 
     private fun clickNextButton() {
@@ -81,8 +83,10 @@ class QuoteInfoFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.bannerLayout.removeAllViews()
         _binding = null
     }
 }

@@ -12,7 +12,6 @@ import androidx.core.content.FileProvider
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.zubeyirtaruz.quotable.R
 import com.zubeyirtaruz.quotable.databinding.FragmentShareBinding
 import com.zubeyirtaruz.quotable.viewmodel.QuoteViewModel
 import java.io.ByteArrayOutputStream
@@ -36,20 +35,24 @@ class ShareFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+
         binding.shareButton.setOnClickListener {
             onShareButtonClick(binding)
         }
+
         return binding.root
     }
 
     private  fun onShareButtonClick(binding: FragmentShareBinding){
         val bitmap = binding.quoteLayout.drawToBitmap()
+
         try {
             val file = bitmap.savetoFile()
             file.share()
         }catch (ex: IOException){
             ex.printStackTrace()
-            Toast.makeText(requireContext(), R.string.saveError, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), com.zubeyirtaruz.quotable.R.string.saveError, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -89,6 +92,7 @@ class ShareFragment : Fragment() {
         }
         startActivity(Intent.createChooser(shareIntent, null))
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

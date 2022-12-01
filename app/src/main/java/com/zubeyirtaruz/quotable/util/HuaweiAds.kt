@@ -53,18 +53,23 @@ class RewardAdClass(private val fragment: Fragment) {
                     Log.e(TAG,errorCode.toString())
                 }
                 override fun onRewardAdClosed() {
-                    Log.i(TAG,"Reward ad closed")
-                    Log.i(TAG,amount.toString())
+                    Log.i(TAG, "Reward ad closed")
+                    Log.i(TAG, amount.toString())
 
-                    if(amount == 5)
-                        Toast.makeText(fragment.requireContext(),
+                    if (amount == 5)
+                        Toast.makeText(
+                            fragment.requireContext(),
                             "Premium template unlocked, you can use it by pressing the next button",
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_LONG)
+                            .show()
                     else
-                        Toast.makeText(fragment.requireContext(),
+                        Toast.makeText(
+                            fragment.requireContext(),
                             "You need to watch the full ad to unlock the premium template",
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_LONG)
+                            .show()
                 }
+
                 override fun onRewarded(reward: Reward) {
                     Log.i(TAG,"Won reward")
                     amount = reward.amount

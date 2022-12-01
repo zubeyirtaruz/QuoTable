@@ -1,5 +1,6 @@
 package com.zubeyirtaruz.quotable.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.huawei.hms.network.httpclient.Callback
@@ -21,14 +22,19 @@ class QuoteFeedViewModel: ViewModel() {
     val quoteError = MutableLiveData<Boolean>()
     val quoteLoading = MutableLiveData<Boolean>()
 
+    @kotlinx.serialization.ExperimentalSerializationApi
     fun getDataFromAPI() {
         quoteLoading.value = true
         apiClient.fetchQuotes().enqueue(object : Callback<String>() {
+
+            private val json = Json {
+                coerceInputValues = true
+            }
+
             override fun onResponse(p0: Submit<String>?, response: Response<String>?) {
                 if (response?.isSuccessful == true) {
-                    var quoteList = Json {
-                        coerceInputValues = true
-                    }.decodeFromString<List<Quote>>(response.body)
+                    var quoteList = json.decodeFromString<List<Quote>>(response.body)
+                    Log.i("abcde", p0.toString())
 
                     quoteList = setAnonymousAuthor(quoteList)
                     quotes.postValue(quoteList)
@@ -51,6 +57,8 @@ class QuoteFeedViewModel: ViewModel() {
         }
         return  quoteList
     }
+
+
 }
 
 

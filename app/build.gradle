@@ -41,7 +41,7 @@ android {
 
     defaultConfig {
         applicationId "com.zubeyirtaruz.quotable"
-        minSdk 21
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -71,6 +71,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.test:core-ktx:1.5.0'
 
     def lifeCycleExtension_Version = '1.1.1'
     def lifecycle_version = '2.6.0-alpha03'
@@ -85,6 +86,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    implementation "androidx.preference:preference-ktx:$preferences_Version"
+
+    implementation "de.hdodenhof:circleimageview:2.1.0"
 
     //activityViewModels
     implementation "androidx.activity:activity-ktx:$activity_version"
@@ -102,16 +107,15 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtension_Version"
 
     implementation 'com.huawei.hms:ads:3.4.49.301'
-    //implementation "com.huawei.hms:ads-lite:13.4.58.301"
-    //implementation "com.huawei.hms:ads-prime:3.4.58.301"
+    implementation "com.google.android.gms:play-services-ads:21.3.0"
     implementation 'com.github.Explore-In-HMS:huawei.ads.admob_mediation:2.0.2'
 
     implementation "com.huawei.hms:hianalytics:6.8.0.300"
     implementation "com.huawei.agconnect:agconnect-crash:1.7.3.300"
 
-    implementation "androidx.preference:preference-ktx:$preferences_Version"
-
-    implementation "com.google.android.gms:play-services-ads:21.3.0"
+    implementation "com.huawei.hms:hwid:6.8.0.300"
+    implementation 'com.huawei.agconnect:agconnect-core:1.7.3.300'
+    implementation 'com.huawei.agconnect:agconnect-auth:1.3.1.300'
     
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

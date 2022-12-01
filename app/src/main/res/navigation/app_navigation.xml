@@ -18,7 +18,8 @@
     <fragment
         android:id="@+id/quoteInfoFragment"
         android:name="com.zubeyirtaruz.quotable.view.QuoteInfoFragment"
-        android:label="Edit Quote Information" >
+        android:label="Edit Quote Information"
+        tools:layout="@layout/fragment_quote_info">
         <action
             android:id="@+id/actionTemplate"
             app:destination="@id/templateFragment" />
@@ -28,6 +29,10 @@
             android:defaultValue="null" />
         <argument
             android:name="author"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="book"
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
