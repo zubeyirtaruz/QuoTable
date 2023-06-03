@@ -13,8 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-*.apk
-*.jks
-*.keystore
-output.json
-agconnect-services.json
+
