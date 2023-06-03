@@ -1,5 +1,6 @@
 package com.zubeyirtaruz.quotable.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.huawei.agconnect.auth.*
+import com.zubeyirtaruz.quotable.R
 import com.zubeyirtaruz.quotable.databinding.FragmentSignupBinding
 import com.zubeyirtaruz.quotable.util.editMessage
 import java.util.*
@@ -27,8 +30,22 @@ class SignupFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.emailLayout.setStartIconTintList(
+            ContextCompat.getColorStateList(requireContext(),
+                R.drawable.text_input_layout_selector))
+        binding.passwordLayout.setStartIconTintList(
+            ContextCompat.getColorStateList(requireContext(),
+                R.drawable.text_input_layout_selector))
+        binding.confirmPasswordLayout.setStartIconTintList(
+            ContextCompat.getColorStateList(requireContext(),
+                R.drawable.text_input_layout_selector))
+        binding.verifyCodeLayout.setStartIconTintList(
+            ContextCompat.getColorStateList(requireContext(),
+                R.drawable.text_input_layout_selector))
 
         binding.getVerifyCodeTextView.setOnClickListener {
             getVerifyCode(binding.email.text.toString())
@@ -64,12 +81,12 @@ class SignupFragment : Fragment() {
                 Log.i("Verification", "User successfully created")
                 Toast.makeText(requireContext(),"Successfully logged in", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().finish()
             }
             .addOnFailureListener { e ->
                 Log.i("Verification", e.message.toString())
                 Toast.makeText(requireContext(), editMessage(e.message.toString()), Toast.LENGTH_SHORT).show()
             }
-
     }
 
 

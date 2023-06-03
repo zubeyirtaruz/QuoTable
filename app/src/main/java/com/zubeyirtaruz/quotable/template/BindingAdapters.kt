@@ -12,6 +12,14 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
 import com.zubeyirtaruz.quotable.model.Quote
+import android.graphics.drawable.Drawable
+
+import android.graphics.drawable.Animatable
+import android.view.View
+import android.widget.ImageView
+
+
+
 
 @BindingAdapter("items", "adapter")
 fun <T, VH: ViewHolder> RecyclerView.items(items: List<T>?, listAdapter: ListAdapter<T, VH>?) {
@@ -49,6 +57,28 @@ fun MaterialCardView.strokeWidthRes(@DimenRes widthRes: Int) {
 
     strokeWidth = resources.getDimensionPixelSize(widthRes)
 
+}
+
+@BindingAdapter("animateOnClick")
+fun setAnimateOnClick(view: ImageView, backDrawable: Drawable?) {
+    val front: Animatable = view.drawable as Animatable
+    view.setOnClickListener {
+
+        if (null == backDrawable) {
+            front.start()
+        } else {
+            if (null == view.tag) {
+                view.setImageDrawable(front as Drawable)
+                front.start()
+                view.tag = 0
+            } else {
+                view.setImageDrawable(backDrawable)
+                (backDrawable as Animatable).start()
+                view.tag = null
+            }
+        }
+
+    }
 }
 
 

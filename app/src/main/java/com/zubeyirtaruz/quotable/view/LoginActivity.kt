@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if(AGConnectAuth.getInstance().currentUser != null){
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }else{
 
             binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
             val adapter = ViewPagerFragmentAdapter(this)
             adapter.addFragment(LoginFragment())
             adapter.addFragment(SignupFragment())
-            binding.viewPager2.setAdapter(adapter)
+            binding.viewPager2.adapter = adapter
 
             TabLayoutMediator(binding.tabLayout, binding.viewPager2) {
                     tab: TabLayout.Tab, position: Int ->

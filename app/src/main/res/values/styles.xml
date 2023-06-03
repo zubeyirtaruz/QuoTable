@@ -5,4 +5,9 @@
         <item name="android:textAllCaps">true</item>
         <item name="fontFamily">sans-serif-medium</item>
     </style>
+
+    <style name="editTextHint">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

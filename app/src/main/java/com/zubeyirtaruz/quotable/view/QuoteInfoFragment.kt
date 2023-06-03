@@ -1,15 +1,22 @@
 package com.zubeyirtaruz.quotable.view
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.provider.MediaStore
+import android.view.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdView
 import com.zubeyirtaruz.quotable.databinding.FragmentQuoteInfoBinding
 import com.zubeyirtaruz.quotable.viewmodel.QuoteViewModel
+
 
 class QuoteInfoFragment : Fragment() {
 
@@ -20,7 +27,7 @@ class QuoteInfoFragment : Fragment() {
 
     private val TAG = "AD STATUS"
 
-    lateinit var mAdView : AdView
+    lateinit var mAdView: AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +38,8 @@ class QuoteInfoFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+
 
         clickNextButton()
 
@@ -74,8 +83,13 @@ class QuoteInfoFragment : Fragment() {
 
         binding.bannerLayout.addView(viewModel.bannerBottom.value)
 
+        binding.buttonOpenCamera.setOnClickListener {
+            openCamera()
+        }
 
     }
+
+
 
     private fun clickNextButton() {
         binding.nextButton.setOnClickListener {
@@ -83,10 +97,35 @@ class QuoteInfoFragment : Fragment() {
         }
     }
 
+    private fun openCamera(){
+        if(ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), 100)
+
+        }
+        else{
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(cameraIntent,100)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 100 && resultCode == Activity.RESULT_OK && data!=null){
+
+            val bitmap = data.extras?.get("data") as Bitmap
+
+            val intent = Intent(requireActivity(), VisionActivity::class.java)
+            intent.putExtra("bitmap", bitmap)
+            startActivity(intent)
+
+        }
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.bannerLayout.removeAllViews()
         _binding = null
     }
+
 }

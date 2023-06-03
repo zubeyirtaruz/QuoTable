@@ -13,6 +13,16 @@
         <action
             android:id="@+id/actionQuoteInfo"
             app:destination="@id/quoteInfoFragment" />
+        <action
+            android:id="@+id/actionAuthor"
+            app:destination="@id/authorFragment" />
+        <argument android:name="authorNameTittle"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
     <fragment
@@ -25,16 +35,13 @@
             app:destination="@id/templateFragment" />
         <argument
             android:name="text"
-            app:argType="string"
-            android:defaultValue="null" />
+            app:argType="string" />
         <argument
             android:name="author"
-            app:argType="string"
-            android:defaultValue="null" />
+            app:argType="string" />
         <argument
             android:name="book"
-            app:argType="string"
-            android:defaultValue="null" />
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -52,5 +59,34 @@
         android:name="com.zubeyirtaruz.quotable.view.ShareFragment"
         android:label="Share to Social Media"
         tools:layout="@layout/fragment_share"/>
+
+    <fragment
+        android:id="@+id/myFavoritesFragment"
+        android:name="com.zubeyirtaruz.quotable.view.MyFavoritesFragment"
+        android:label="Favorite Quotes"
+        tools:layout="@layout/fragment_my_favorites">
+        <action
+            android:id="@+id/actionQuoteFeed"
+            app:destination="@id/quoteFeedFragment" />
+        <action
+            android:id="@+id/myFavoritestoActionQuoteInfo"
+            app:destination="@id/quoteInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authorFragment"
+        android:name="com.zubeyirtaruz.quotable.view.AuthorFragment"
+        android:label="Authors"
+        tools:layout="@layout/fragment_author">
+        <action
+            android:id="@+id/action_authorFragment_to_quoteFeedFragment"
+            app:destination="@id/quoteFeedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.zubeyirtaruz.quotable.view.ProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_profile"/>
 
 </navigation>

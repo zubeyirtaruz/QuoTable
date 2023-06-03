@@ -1,18 +1,24 @@
 package com.zubeyirtaruz.quotable.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.huawei.agconnect.auth.AGConnectAuth
+import com.huawei.agconnect.auth.AGConnectUser
 import com.huawei.agconnect.auth.EmailAuthProvider
 import com.huawei.agconnect.auth.HwIdAuthProvider
+import com.huawei.agconnect.auth.SignInResult
 import com.huawei.hms.support.hwid.HuaweiIdAuthManager
 import com.huawei.hms.support.hwid.request.HuaweiIdAuthParams
 import com.huawei.hms.support.hwid.request.HuaweiIdAuthParamsHelper
+import com.zubeyirtaruz.quotable.R
 import com.zubeyirtaruz.quotable.databinding.FragmentLoginBinding
 import com.zubeyirtaruz.quotable.util.editMessage
 
@@ -41,8 +47,12 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.emailLayout.setStartIconTintList(ContextCompat.getColorStateList(requireContext(),R.drawable.text_input_layout_selector))
+        binding.passwordLayout.setStartIconTintList(ContextCompat.getColorStateList(requireContext(),R.drawable.text_input_layout_selector))
 
         binding.buttonHuaweiId.setOnClickListener {
             val authParams = HuaweiIdAuthParamsHelper(HuaweiIdAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setAccessToken().createParams()
@@ -68,6 +78,7 @@ class LoginFragment : Fragment() {
             .addOnSuccessListener {
                 Toast.makeText(requireContext(),"Successfully logged in", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(requireContext(), editMessage(e.message.toString()), Toast.LENGTH_SHORT).show()
@@ -92,6 +103,7 @@ class LoginFragment : Fragment() {
 
                         Toast.makeText(requireContext(),"Successfully logged in", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(requireContext(), MainActivity::class.java))
+                        requireActivity().finish()
 
                     }.addOnFailureListener { e ->
                         Toast.makeText(requireContext(), editMessage(e.message.toString()), Toast.LENGTH_SHORT).show()
@@ -99,10 +111,7 @@ class LoginFragment : Fragment() {
 
             } else {
                 Toast.makeText(requireContext(), "Huawei ID signIn failed: " + authHuaweiIdTask.exception.message?.let {
-                    editMessage(
-                        it
-                    )
-                }, Toast.LENGTH_SHORT).show()
+                    editMessage(it) }, Toast.LENGTH_SHORT).show()
             }
         }
     }

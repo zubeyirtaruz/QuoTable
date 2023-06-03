@@ -2,45 +2,60 @@ package com.zubeyirtaruz.quotable.view
 
 import android.content.Intent
 import android.content.Intent.ACTION_SEND
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.os.Parcelable
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.*
-import com.huawei.agconnect.auth.AGConnectAuth
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.huawei.agconnect.crash.AGConnectCrash
 import com.huawei.hms.analytics.HiAnalytics
 import com.huawei.hms.analytics.HiAnalyticsTools
+import com.huawei.hms.mlsdk.MLAnalyzerFactory
+import com.huawei.hms.mlsdk.common.MLFrame
+import com.huawei.hms.mlsdk.text.MLLocalTextSetting
+import com.huawei.hms.mlsdk.text.MLTextAnalyzer
+import com.huawei.secure.android.common.intent.SafeIntent
 import com.zubeyirtaruz.quotable.R
 import com.zubeyirtaruz.quotable.viewmodel.QuoteViewModel
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-
+    private var mTextAnalyzer: MLTextAnalyzer? = null
     val viewModel: QuoteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this) {}
-
-        HiAnalyticsTools.enableLog()
-        val instance = HiAnalytics.getInstance(this)
-        instance.setUserProfile("userKey","value")
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        val bottomNavigationView = findViewById<BottomNavigationView
+                >(R.id.bottomNav)
+        bottomNavigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this,navController)
 
-        handleIntent(intent)
+        if(getCroppedImage()!= null){
+            createMLTextAnalyzer()
+            getCroppedImage()?.let { asyncAnalyzeText(it) }
+            navHostFragment.findNavController().navigate(QuoteFeedFragmentDirections.actionQuoteInfo("","",""))
+        }
 
+        MobileAds.initialize(this) {}
+        HiAnalyticsTools.enableLog()
+        val instance = HiAnalytics.getInstance(this)
+        instance.setUserProfile("userKey","value")
+        handleIntent(intent)
         enableCrashService()
 
         viewModel.setBannerBottom(this)
@@ -60,28 +75,52 @@ class MainActivity : AppCompatActivity() {
         if(intent?.action == ACTION_SEND && intent.type == "text/plain"){
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
                 viewModel.onIntentWithTextExtra(it)
+                navController.navigate(QuoteFeedFragmentDirections.actionQuoteInfo(it,"",""))
             }
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.logout_menu,menu)
-        return true
+    private fun asyncAnalyzeText(bitmap: Bitmap) {
+        if (mTextAnalyzer == null) {
+            createMLTextAnalyzer()
+        }
+        val frame = MLFrame.fromBitmap(bitmap)
+        val task = mTextAnalyzer?.asyncAnalyseFrame(frame)
+        task?.addOnSuccessListener {
+            viewModel.quote.value = it.stringValue
+        }?.addOnFailureListener {
+            println(it.message)
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.logoutButton -> {
-                AGConnectAuth.getInstance().signOut()
-                startActivity(Intent(this,LoginActivity::class.java))
-            }
+    private fun createMLTextAnalyzer() {
+        val setting = MLLocalTextSetting.Factory()
+            .setOCRMode(MLLocalTextSetting.OCR_DETECT_MODE)
+            .setLanguage("en")
+            .create()
+        mTextAnalyzer = MLAnalyzerFactory.getInstance().getLocalTextAnalyzer(setting)
+    }
+
+    private fun stopTextAnalyzer(){
+        try {
+            if (mTextAnalyzer != null)
+                mTextAnalyzer!!.stop()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-        return super.onOptionsItemSelected(item)
+    }
+    private fun getCroppedImage(): Bitmap? {
+        val intent: Intent = SafeIntent(intent)
+        return intent.getParcelableExtra<Parcelable>("croppedImage") as Bitmap?
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopTextAnalyzer()
     }
 
 }

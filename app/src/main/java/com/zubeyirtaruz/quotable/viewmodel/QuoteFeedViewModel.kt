@@ -28,15 +28,38 @@ class QuoteFeedViewModel: ViewModel() {
         apiClient.fetchQuotes().enqueue(object : Callback<String>() {
 
             private val json = Json {
-                coerceInputValues = true
+                ignoreUnknownKeys = true
             }
 
             override fun onResponse(p0: Submit<String>?, response: Response<String>?) {
                 if (response?.isSuccessful == true) {
                     var quoteList = json.decodeFromString<List<Quote>>(response.body)
-                    Log.i("abcde", p0.toString())
 
-                    quoteList = setAnonymousAuthor(quoteList)
+                    quotes.postValue(quoteList)
+                    quoteError.postValue(false)
+                    quoteLoading.postValue(false)
+                }
+            }
+            override fun onFailure(p0: Submit<String>?, p1: Throwable?) {
+                quoteLoading.postValue(false)
+                quoteError.postValue(true)
+                Log.i("authorError", p0.toString())
+            }
+        })
+    }
+
+    fun getWithUrlFromAPI(url: String) {
+        quoteLoading.value = true
+        apiClient.fetchWithUrl(url).enqueue(object : Callback<String>() {
+
+            private val json = Json {
+                ignoreUnknownKeys = true
+            }
+
+            override fun onResponse(p0: Submit<String>?, response: Response<String>?) {
+                if (response?.isSuccessful == true) {
+                    var quoteList = json.decodeFromString<List<Quote>>(response.body)
+
                     quotes.postValue(quoteList)
                     quoteError.postValue(false)
                     quoteLoading.postValue(false)
@@ -48,17 +71,6 @@ class QuoteFeedViewModel: ViewModel() {
             }
         })
     }
-
-    private fun setAnonymousAuthor(quoteList: List<Quote>) : List<Quote> {
-
-        for (i in quoteList.indices) {
-            if (quoteList[i].author == null)
-                quoteList[i].author = "Anonymous"
-        }
-        return  quoteList
-    }
-
-
 }
 
 

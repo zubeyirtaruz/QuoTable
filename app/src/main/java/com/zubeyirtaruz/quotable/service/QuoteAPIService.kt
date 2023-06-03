@@ -3,7 +3,7 @@ package com.zubeyirtaruz.quotable.service
 import com.huawei.hms.network.httpclient.HttpClient
 import com.huawei.hms.network.restclient.RestClient
 
-const val BASE_URL = "https://type.fit/api/"
+const val BASE_URL = "https://zenquotes.io/api/"
 
 class QuoteAPIService {
 

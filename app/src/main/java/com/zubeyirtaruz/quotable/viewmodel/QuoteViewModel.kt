@@ -38,7 +38,8 @@ class QuoteViewModel: ViewModel(), TemplateAdapter.TemplateItemClickListener {
     val quoteInfo get() = Quote(
         quote = quote.value!!,
         author = author.value!!,
-        book = book.value!!
+        book = book.value!!,
+        imageUrl = null
     )
 
     fun onIntentWithTextExtra(textExtra: String) {

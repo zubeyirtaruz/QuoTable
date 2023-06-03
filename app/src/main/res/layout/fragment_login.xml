@@ -7,97 +7,110 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".view.LoginFragment"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="12dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailLayout"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/email"
-            app:endIconMode="clear_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.231"
-            app:layout_constraintWidth_percent=".8"
-            app:startIconDrawable="@drawable/email">
+            tools:context=".view.LoginFragment"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="12dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_bg"
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp" />
+                android:layout_margin="20dp"
+                android:hint="@string/email"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/charcoal"
+                app:hintTextAppearance="@style/editTextHint"
+                app:hintTextColor="@color/red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.231"
+                app:layout_constraintWidth_percent=".8"
+                app:startIconDrawable="@drawable/email">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:textColorHint="@color/charcoal" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailLayout"
-            app:layout_constraintWidth_percent=".8"
-            app:startIconDrawable="@drawable/password">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edit_text_bg"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp" />
+                android:layout_margin="20dp"
+                android:hint="@string/password"
+                app:hintTextAppearance="@style/editTextHint"
+                app:hintTextColor="@color/red"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/charcoal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailLayout"
+                app:layout_constraintWidth_percent=".8"
+                app:startIconDrawable="@drawable/password">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/button_bg"
-            android:text="@string/log_in"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
-            app:layout_constraintVertical_bias="0.254"
-            app:layout_constraintWidth_percent=".8" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
-            android:id="@+id/buttonHuaweiId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            app:hwid_button_theme="hwid_button_theme_no_title"
-            app:hwid_color_policy="hwid_color_policy_red"
-            app:hwid_corner_radius="hwid_corner_radius_large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
-            app:layout_constraintVertical_bias="0.072" />
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_margin="20dp"
+                android:text="@string/log_in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+                app:layout_constraintVertical_bias="0.254"
+                app:layout_constraintWidth_percent=".8" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
+                android:id="@+id/buttonHuaweiId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:hwid_button_theme="hwid_button_theme_no_title"
+                app:hwid_color_policy="hwid_color_policy_red"
+                app:hwid_corner_radius="hwid_corner_radius_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
 
